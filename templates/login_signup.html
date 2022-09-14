@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% block content %}
+{% if page == 'login' %}
+<div class="container mt-5 mb3">
+  <div class="row align-item-center h-100">
+    <div class="col-6 mx-auto">
+      <div class="jumbotron shadow">
+        <form action="{% url 'author-login' %}" method="POST">
+          {% csrf_token %}
+          <div class="card">
+            <div class="card-header text-white" style="background: black">
+              <h1 style="text-align: center;">Author Login</h1>
+            </div>
+            <div class="card-body">
+              {% for field in form %}
+              <div class="form__field">
+                {{ field }}
+
+                {% for error in field.errors %}
+                <p style="color: red;">{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              <br>
+              <div style="text-align:center">
+                <input type="submit" class="btn text-white" style="background: black" value="Login" />
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              <p style="text-align: center;">Don't have an account <a href="{% url 'author-signup' %}">Sign Up</a></p>
+              <p style="text-align: center;">Back to home <a href="{% url 'home' %}">Home</a></p>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if page == 'signup' %}
+<div class="container mt-5 mb3">
+  <div class="row align-item-center h-100">
+    <div class="col-6 mx-auto">
+      <div class="jumbotron shadow">
+        <form action="{% url 'author-signup' %}" method="POST">
+          {% csrf_token %}
+          <div class="card">
+            <div class="card-header text-white" style="background: #3398E1">
+              <h1 style="text-align: center;">Author Signup</h1>
+            </div>
+            <div class="card-body">
+              {% for field in form %}
+              <div class="form__field">
+                {{ field.label_tag }}
+                <br>
+                {{ field }}
+                <br>
+
+                {% for error in field.errors %}
+                <p style="color: red;">{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              <div style="text-align:center">
+                <input type="submit" class="btn text-white" style="background: #3398E1" value="Sign Up" />
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              <p style="text-align: center;">Already have an account <a href="{% url 'author-login' %}">Login</a></p>
+              <p style="text-align: center;">Back to home <a href="{% url 'home' %}">Home</a></p>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+{% include 'navbar.html' %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+
+    .head_text {
+        color: white;
+    }
+
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-2">
+                <img class="rounded-circle mt-5" width="150px"
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span class="font-weight-bold">{{ request.user.username}}</span>
+                <span class="text-black-50">{{ request.user.email}}</span>
+                <span> </span>
+            </div>
+        </div>
+        <!-- Sidebar Widgets Column
+        <div class="col-md-4 mt-3 float-left ">
+            <div class="card my-4">
+                <h5 class="card-header">About Us</h5>
+                <div class="card-body">
+                    <p class="card-text"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti eaque
+                        consequuntur
+                        optio eos, facere reprehenderit voluptate beatae obcaecati dolorem, distinctio repellat natus
+                        voluptas
+                        quasi!</p>
+                    <a href="https://djangocentral.com/building-a-blog-application-with-django"
+                        class="btn btn-danger">Know
+                        more!</a>
+                </div>
+            </div>
+        </div> -->
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 right">
+            {% for post in post_list %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                    <p class="card-text">{{post.content|slice:":200" }}</p>
+                    <a href="{% url 'post_detail' post.slug  %}" class="btn btn-dark">Read More &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{%endblock%}

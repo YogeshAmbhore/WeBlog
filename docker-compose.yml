@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    # image: app:django
+    container_name: django_container
+    command: python3 manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      # - POSTGRES_DB=newblog
+      # - POSTGRES_USER=yogesh
+      # - POSTGRES_PASSWORD=root123
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    container_name: postgres_db
+
+volumes:
+  postgres_data:
